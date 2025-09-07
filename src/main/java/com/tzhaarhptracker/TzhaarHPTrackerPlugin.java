@@ -122,9 +122,15 @@ public class TzhaarHPTrackerPlugin extends Plugin
 		"jaltok-jad", "yt-hurkot", "tzkal-zuk", "jal-mejjak", "<col=00ffff>rocky support</col>"
 	);
 
+    @Getter
+    private static final Set<String> COLOSSEUM_NPC = ImmutableSet.of(
+            "fremennik warband archer", "fremennik warband seer", "fremennik warband berserker", "serpent shaman", "jaguar warrior",
+            "javelin colossus", "manticore", "shockwave colossus", "minotaur", "sol heredit"
+    );
+
 	@Getter
 	private static final Set<String> EXCLUDED_NPC = ImmutableSet.of(
-		"yt-hurkot", "tztok-jad", "jaltok-jad", "jal-mejjak", "tzkal-zuk"
+		"yt-hurkot", "tztok-jad", "jaltok-jad", "jal-mejjak", "tzkal-zuk", "sol heredit"
 	);
 
 	@Getter
@@ -134,6 +140,7 @@ public class TzhaarHPTrackerPlugin extends Plugin
 
 	private static final int FIGHT_CAVES_REGION = 9551;
 	private static final int INFERNO_REGION = 9043;
+    private static final int COLOSSEUM_REGION = 7216;
 	private static final int JAD_CHALLENGE_VAR = 11878; // 0 = out, 1 = in
 
 	@Getter
@@ -149,6 +156,7 @@ public class TzhaarHPTrackerPlugin extends Plugin
 	private static final String ZUK_KC_MESSAGE = "Your TzKal-Zuk kill count is:";
 	private static final String JAD_KC_MESSAGE = "Your TzTok-Jad kill count is:";
 	private static final String DEATH_MESSAGE = "You have been defeated!";
+    private static final String COLO_KC_MESSAGE = "Your Sol Heredit kill count is:";
 
 	@Getter
 	Font font;
@@ -195,7 +203,7 @@ public class TzhaarHPTrackerPlugin extends Plugin
 		{
 			for (NPC npc : client.getTopLevelWorldView().npcs())
 			{
-				if (npc.getName() != null && (INFERNO_NPC.contains(npc.getName()) || FIGHT_CAVE_NPC.contains(npc.getName())))
+				if (npc.getName() != null && (INFERNO_NPC.contains(npc.getName()) || FIGHT_CAVE_NPC.contains(npc.getName()) || COLOSSEUM_NPC.contains(npc.getName())))
 				{
 					try
 					{
@@ -243,7 +251,8 @@ public class TzhaarHPTrackerPlugin extends Plugin
 			NPC npc = e.getNpc();
 			int tick = client.getTickCount();
 
-			if (npc.getName() != null && (INFERNO_NPC.contains(npc.getName().toLowerCase()) || FIGHT_CAVE_NPC.contains(npc.getName().toLowerCase())))
+			if (npc.getName() != null && (INFERNO_NPC.contains(npc.getName().toLowerCase()) || FIGHT_CAVE_NPC.contains(npc.getName().toLowerCase()) ||
+                    COLOSSEUM_NPC.contains(npc.getName().toLowerCase())))
 			{
 				try
 				{
@@ -286,6 +295,9 @@ public class TzhaarHPTrackerPlugin extends Plugin
 			if (WAVE_START_PATTERN.matcher(message).matches())
 			{
 				String cave = isInInferno() ? "inferno" : "fc";
+                if (isInColosseum())
+                    cave = "colosseum";
+
 				String wave = message.split(": ")[1];
 				currentWave.put(cave, Integer.parseInt(wave));
 
@@ -297,7 +309,8 @@ public class TzhaarHPTrackerPlugin extends Plugin
 				waveStarted = false;
 				waveStartTick = -1;
 			}
-			else if (message.startsWith(JAD_KC_MESSAGE) || message.startsWith(ZUK_KC_MESSAGE) || message.equals(DEATH_MESSAGE))
+			else if (message.startsWith(JAD_KC_MESSAGE) || message.startsWith(ZUK_KC_MESSAGE) || message.startsWith(COLO_KC_MESSAGE) ||
+                    message.equals(DEATH_MESSAGE))
 			{
 				waveStarted = false;
 				waveStartTick = -1;
@@ -528,7 +541,7 @@ public class TzhaarHPTrackerPlugin extends Plugin
 
 	public boolean isInAllowedCaves()
 	{
-		return isInFightCaves() || isInInferno();
+		return isInFightCaves() || isInInferno() || isInColosseum();
 	}
 
 	public boolean isInFightCaves()
@@ -540,6 +553,11 @@ public class TzhaarHPTrackerPlugin extends Plugin
 	{
 		return ArrayUtils.contains(client.getTopLevelWorldView().getMapRegions(), INFERNO_REGION);
 	}
+
+    public boolean isInColosseum()
+    {
+        return ArrayUtils.contains(client.getTopLevelWorldView().getMapRegions(), COLOSSEUM_REGION);
+    }
 
 	//10063-10065 is inferno bank region
 	//9808 is fight caves bank area, 9552 is fight pits area

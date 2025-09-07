@@ -631,7 +631,7 @@ public class DamageHandler extends InfoHandler
 	{
 		if (!processedThisTick && damage > 0 && skill != null)
 		{
-			if (style == WeaponStyle.DINHS)
+            if (style == WeaponStyle.DINHS || style == WeaponStyle.VENATOR)
 				return;
 
 			processedThisTick = true;

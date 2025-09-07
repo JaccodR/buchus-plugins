@@ -768,8 +768,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.DRAGON_THROWNAXE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRYGORE_BLOWPIPE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRYGORE_BLOWPIPE_EMPTY, WeaponStyle.RANGE);
-		StyleMap.put(ItemID.ECHO_VENATOR_BOW, WeaponStyle.RANGE);
-		StyleMap.put(ItemID.ECHO_VENATOR_BOW_UNCHARGED, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.ECHO_VENATOR_BOW, WeaponStyle.VENATOR);
+		StyleMap.put(ItemID.ECHO_VENATOR_BOW_UNCHARGED, WeaponStyle.VENATOR);
 		StyleMap.put(ItemID.ECLIPSE_ATLATL, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.HEAVY_BALLISTA, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.HEAVY_BALLISTA_23630, WeaponStyle.RANGE);

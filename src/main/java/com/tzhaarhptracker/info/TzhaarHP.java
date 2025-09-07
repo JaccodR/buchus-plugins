@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import lombok.Getter;
 import static net.runelite.api.NpcID.*;
+import static net.runelite.api.gameval.NpcID.*;
 
 public enum TzhaarHP
 {
@@ -29,8 +30,20 @@ public enum TzhaarHP
 	TZKAL_ZUK(1200, TZKALZUK),
 	ZUK_HEALER(75, JALMEJJAK),
 	INFERNO_JAD_HEALERS(90, YTHURKOT_7701, YTHURKOT_7705),
-	PILLAR(255, ROCKY_SUPPORT) //7710 is just as it is dying
-	;
+	PILLAR(255, ROCKY_SUPPORT), //7710 is just as it is dying
+
+    //Colosseum
+    FREM_MELEE(48, COLOSSEUM_WARBANDER_MELEE_MALE),
+    FREM_RANGE(50, COLOSSEUM_WARBANDER_RANGED_FEMALE),
+    FREM_MAGE(50, COLOSSEUM_WARBANDER_MAGE_MALE),
+    SHAMAN(125, COLOSSEUM_STANDARD_MAGER),
+    JAGUAR(125, COLOSSEUM_JAGUAR_WARRIOR),
+    JAVELIN(220, COLOSSEUM_JAVELIN_COLOSSUS),
+    MANTICORE(250, COLOSSEUM_MANTICORE),
+    SHOCKWAVE(125, COLOSSEUM_SHOCKWAVE_COLOSSUS),
+    MINOTAUR(225, COLOSSEUM_MINOTAUR),
+    SOL(1500,COLOSSEUM_SOL_P1)
+    ;
 
 	@Getter
 	private final int maxHP;

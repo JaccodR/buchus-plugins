@@ -28,6 +28,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import lombok.Getter;
 import static net.runelite.api.NpcID.*;
+import static net.runelite.api.gameval.NpcID.*;
 
 enum XPModifiers
 {
@@ -52,7 +53,19 @@ enum XPModifiers
 	TZKAL_ZUK(57.5, TZKALZUK),
 	ZUK_HEALER(0, JALMEJJAK),
 	INFERNO_JAD_HEALERS(0, YTHURKOT_7701, YTHURKOT_7705),
-	PILLAR(0, ROCKY_SUPPORT) //7710 is just as it is dying
+	PILLAR(0, ROCKY_SUPPORT), //7710 is just as it is dying
+
+    //Colosseum
+    FREM_MELEE(10, COLOSSEUM_WARBANDER_MELEE_MALE),
+    FREM_RANGE(12.5, COLOSSEUM_WARBANDER_RANGED_FEMALE),
+    FREM_MAGE(0, COLOSSEUM_WARBANDER_MAGE_MALE),
+    SHAMAN(0, COLOSSEUM_STANDARD_MAGER),
+    JAGUAR(5, COLOSSEUM_JAGUAR_WARRIOR),
+    JAVELIN(0, COLOSSEUM_JAVELIN_COLOSSUS),
+    MANTICORE(0, COLOSSEUM_MANTICORE),
+    SHOCKWAVE(0, COLOSSEUM_SHOCKWAVE_COLOSSUS),
+    MINOTAUR(10, COLOSSEUM_MINOTAUR),
+    SOL(85, COLOSSEUM_SOL_P1)
 	;
 
 	@Getter

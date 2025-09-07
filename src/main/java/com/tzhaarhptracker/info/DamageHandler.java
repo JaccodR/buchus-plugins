@@ -520,6 +520,13 @@ public class DamageHandler extends InfoHandler
 							processHit(hit, e.getSkill(), attackStyle, weaponStyle, (NPC) lastOpponent);
 						}
 						break;
+                    case MAGIC:
+                        if (weaponStyle == WeaponStyle.TRIDENTS)
+                        {
+                            hit = calculateHitOnNpc(lastOpponentID, e.getSkill(), currentXp - previousXp, attackStyle, weaponStyle);
+                            processHit(hit, e.getSkill(), attackStyle, weaponStyle, (NPC) lastOpponent);
+                        }
+                        break;
 				}
 			}
 		}
@@ -557,6 +564,7 @@ public class DamageHandler extends InfoHandler
 		{
 			modifier = (XPModifiers.getXpMod(id) + 100) / 100.0d;
 		}
+        System.out.println("Modifier is: "+ modifier + " Attack style: " + attackStyle + " Weapon style: " + weaponStyle + " skill: " + skill);
 
 		return calculateHit(skill, xpDiff, attackStyle, weaponStyle, modifier, config.xpMultiplier());
 	}
@@ -585,15 +593,28 @@ public class DamageHandler extends InfoHandler
 
 		switch (skill)
 		{
-			case ATTACK:
-			case STRENGTH:
+            case MAGIC:
+                if (attackStyle != AttackStyle.DEFENSIVE_CASTING && weaponStyle == WeaponStyle.TRIDENTS)
+                {
+                    damage = xpDiff / 2.0D;
+                }
+                break;
+            case ATTACK:
+            case STRENGTH:
 			case DEFENCE:
 				switch (attackStyle)
 				{
 					case ACCURATE:
 					case AGGRESSIVE:
 					case DEFENSIVE:
-						damage = xpDiff / 4.0D;
+                        if (weaponStyle == WeaponStyle.TRIDENTS)
+                        {
+                            damage = xpDiff;
+                        }
+						else
+                        {
+                            damage = xpDiff / 4.0D;
+                        }
 						break;
 					case CONTROLLED:
 						damage = xpDiff / 1.33D;
@@ -633,6 +654,8 @@ public class DamageHandler extends InfoHandler
 		{
             if (style == WeaponStyle.DINHS || style == WeaponStyle.VENATOR)
 				return;
+
+            System.out.println("Damage: " + damage + " on Npc: " + interacting.getName());
 
 			processedThisTick = true;
 			boolean isAoe = style == WeaponStyle.CHINS || (client.getLocalPlayer().getAnimation() == BARRAGE || aoeSpellQueued);

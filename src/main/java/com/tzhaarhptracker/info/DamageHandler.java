@@ -564,7 +564,6 @@ public class DamageHandler extends InfoHandler
 		{
 			modifier = (XPModifiers.getXpMod(id) + 100) / 100.0d;
 		}
-        System.out.println("Modifier is: "+ modifier + " Attack style: " + attackStyle + " Weapon style: " + weaponStyle + " skill: " + skill);
 
 		return calculateHit(skill, xpDiff, attackStyle, weaponStyle, modifier, config.xpMultiplier());
 	}
@@ -655,7 +654,6 @@ public class DamageHandler extends InfoHandler
             if (style == WeaponStyle.DINHS || style == WeaponStyle.VENATOR)
 				return;
 
-            System.out.println("Damage: " + damage + " on Npc: " + interacting.getName());
 
 			processedThisTick = true;
 			boolean isAoe = style == WeaponStyle.CHINS || (client.getLocalPlayer().getAnimation() == BARRAGE || aoeSpellQueued);
